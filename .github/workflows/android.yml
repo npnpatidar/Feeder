@@ -12,14 +12,12 @@ jobs:
 
         steps:
             - name: Checkout Code
-              uses: npnpatidar/checkout@v4 # Use your forked version of actions/checkout
-            - name: Set up JDK 11
-              uses: npnpatidar/setup-java@v4 # Use your forked version of actions/setup-java
-              with:
-                  java-version: "11"
-                  distribution: "temurin"
-                  cache: gradle
-
+              uses: actions/checkout@v4 # Keep this or fork if necessary
+            - name: Install OpenJDK 11
+              run: |
+                  sudo apt update
+                  sudo apt install -y openjdk-11-jdk
+                  java -version
             - name: Grant execute permission for gradlew
               run: chmod +x gradlew
             - name: Build with Gradle
