@@ -55,6 +55,7 @@ class RssLocalSync(
     private val okHttpClient: OkHttpClient by instance()
     private val filePathProvider: FilePathProvider by instance()
     private val application: Application by instance()
+    private val openAIApi: OpenAIApi by instance() 
 
     suspend fun syncFeeds(
         feedId: Long = ID_UNSET,
@@ -242,6 +243,8 @@ class RssLocalSync(
                 }
 
         val url = feedSql.url
+        val feedSql = repository.syncLoadFeed(feedId, retryAfter = Instant.now()) ?: return Unit.right()
+
 
         // Belts and suspenders
         if (feedSql.retryAfter > Instant.now()) {
@@ -356,16 +359,40 @@ class RssLocalSync(
                                 null
                             }
                         } ?: emptyList()
-
-                repository.upsertFeedItems(feedItemSqls) { feedItem, text ->
-                    filePathProvider.articleDir.mkdirs()
-                    blobOutputStream(feedItem.id, filePathProvider.articleDir)
-                        .bufferedWriter()
-                        .use {
-                            it.write(text)
-                        }
+                // Around line 359, before repository.upsertFeedItems
+val itemsWithSummaries = feedItemSqls.map { (feedItem, text) ->
+    if (feedSql.fetchSummaryByDefault) {
+        try {
+            val summaryResult = openAIApi.summarize(text)
+            when (summaryResult) {
+                is OpenAIApi.SummaryResult.Success -> {
+                    // Update the feed item with the summary
+                    feedItem.summary = summaryResult.content
+                    feedItem to text
                 }
-                // Try to look for image if not done before
+                else -> {
+                    Log.e(LOG_TAG, "Failed to generate summary: ${(summaryResult as? OpenAIApi.SummaryResult.Error)?.content}")
+                    feedItem to text
+                }
+            }
+        } catch (e: Exception) {
+            Log.e(LOG_TAG, "Error generating summary", e)
+            feedItem to text
+        }
+    } else {
+        feedItem to text
+    }
+}
+// Around line 360, replace the existing upsertFeedItems call
+repository.upsertFeedItems(itemsWithSummaries) { feedItem, text ->
+    filePathProvider.articleDir.mkdirs()
+    blobOutputStream(feedItem.id, filePathProvider.articleDir)
+        .bufferedWriter()
+        .use {
+            it.write(text)
+        }
+}
+               // Try to look for image if not done before
                 if (feedSql.imageUrl == null && feedSql.siteFetched == Instant.EPOCH) {
                     val siteUrl =
                         try {

@@ -135,6 +135,8 @@
 
   <string name="fetch_full_article">Fetch full article</string>
   <string name="fetch_full_articles_by_default">Fetch full articles by default</string>
+  <string name="fetch_summary_by_default">Fetch summary by default</string>
+  <string name="fetch_summary_by_default_description">Uses AI to automatically generate summaries for new articles</string>
   <string name="failed_to_fetch_full_article">Could not fetch full article</string>
   <string name="failed_to_open_article">Could not open article</string>
   <string name="sync_to_fetch">Synchronize to fetch article</string>

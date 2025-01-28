@@ -112,6 +112,7 @@ data class FeedItem
         var oldPinned: Boolean = false,
         @ColumnInfo(name = COL_BOOKMARKED) var bookmarked: Boolean = false,
         @ColumnInfo(name = COL_FULLTEXT_DOWNLOADED) var fullTextDownloaded: Boolean = false,
+        @ColumnInfo(name = COL_SUMMARY) var summary: String? = null,
         @ColumnInfo(
             name = COL_READ_TIME,
             typeAffinity = ColumnInfo.INTEGER,

@@ -50,6 +50,7 @@ data class Feed
         @ColumnInfo(name = COL_LASTSYNC, typeAffinity = ColumnInfo.INTEGER) var lastSync: Instant = Instant.EPOCH,
         @ColumnInfo(name = COL_RESPONSEHASH) var responseHash: Int = 0,
         @ColumnInfo(name = COL_FULLTEXT_BY_DEFAULT) var fullTextByDefault: Boolean = false,
+        @ColumnInfo(name = COL_FETCH_SUMMARY_BY_DEFAULT) var fetchSummaryByDefault: Boolean = false,
         @ColumnInfo(name = COL_OPEN_ARTICLES_WITH) var openArticlesWith: String = OPEN_ARTICLE_WITH_APPLICATION_DEFAULT,
         @ColumnInfo(name = COL_ALTERNATE_ID) var alternateId: Boolean = false,
         @ColumnInfo(name = COL_CURRENTLY_SYNCING) var currentlySyncing: Boolean = false,

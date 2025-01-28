@@ -145,6 +145,7 @@ data class Feed(
     val author: Author? = null,
     val expired: Boolean? = null,
     val hubs: List<Hub>? = null,
+    val fetchSummaryByDefault: Boolean = false,
     val items: List<Item>?,
 )
 

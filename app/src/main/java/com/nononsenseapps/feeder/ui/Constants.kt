@@ -16,3 +16,4 @@ const val ARG_URL = "url"
 const val ARG_ONLY_NEW = "only_new"
 
 const val NOSTR_URI_PREFIX = "nostr:"
+const val COL_SUMMARY = "summary"

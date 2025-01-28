@@ -498,6 +498,14 @@ fun ColumnScope.RightContent(
         enabled = !viewState.feedUrl.isNostrUri(),
     )
     SwitchSetting(
+        title = stringResource(id = R.string.fetch_summary_by_default),
+        checked = viewState.summaryByDefault,
+        { viewState.summaryByDefault = it },
+        icon = null,
+        enabled = !viewState.feedUrl.isNostrUri(),
+    )
+
+    SwitchSetting(
         title = stringResource(id = R.string.notify_for_new_items),
         checked = viewState.notify,
         { viewState.notify = it },
@@ -568,6 +576,7 @@ interface EditFeedScreenState {
     var feedTitle: String
     var feedTag: String
     var fullTextByDefault: Boolean
+    var fetchSummaryByDefault: Boolean
     var notify: Boolean
     var skipDuplicates: Boolean
     var articleOpener: String
@@ -600,6 +609,7 @@ private class ScreenState(
     override var feedTitle: String by mutableStateOf("")
     override var feedTag: String by mutableStateOf("")
     override var fullTextByDefault: Boolean by mutableStateOf(false)
+    override var fetchSummaryByDefault: Boolean by mutableStateOf(false)
     override var notify: Boolean by mutableStateOf(false)
     override var skipDuplicates: Boolean by mutableStateOf(false)
     override var articleOpener: String by mutableStateOf("")

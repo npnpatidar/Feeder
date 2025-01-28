@@ -44,6 +44,7 @@ class EditFeedScreenViewModel(
     override var feedTitle: String by mutableSavedStateOf(state, "")
     override var feedTag: String by mutableSavedStateOf(state, "")
     override var fullTextByDefault: Boolean by mutableSavedStateOf(state, false)
+    override var fetchSummaryByDefault: Boolean by mutableSavedStateOf(state, false)
     override var skipDuplicates: Boolean by mutableSavedStateOf(state, false)
     override var notify: Boolean by mutableSavedStateOf(state, false)
     override var articleOpener: String by mutableSavedStateOf(state, "")
@@ -98,6 +99,9 @@ class EditFeedScreenViewModel(
             if (!state.contains("fullTextByDefault")) {
                 fullTextByDefault = feed.fullTextByDefault
             }
+            if (!state.contains("fetchSummaryByDefault")) {
+                fetchSummaryByDefault = feed.fetchSummaryByDefault
+            }
             if (!state.contains("notify")) {
                 notify = feed.notify
             }
@@ -131,6 +135,7 @@ class EditFeedScreenViewModel(
                     customTitle = feedTitle,
                     tag = feedTag,
                     fullTextByDefault = if (feedUrl.isNostrUri()) false else fullTextByDefault,
+                    fetchSummaryByDefault = fetchSummaryByDefault,
                     notify = notify,
                     skipDuplicates = skipDuplicates,
                     openArticlesWith = articleOpener,
