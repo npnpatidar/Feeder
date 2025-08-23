@@ -170,6 +170,11 @@ class SettingsViewModel(
                 val current = _viewState.value.openAIState
                 _viewState.value = _viewState.value.copy(openAIState = current.copy(showModelsError = event.show))
             }
+
+            is OpenAISettingsEvent.SetSummarizeOnOpen -> {
+                val current = _viewState.value.openAIState.settings
+                repository.setOpenAiSettings(current.copy(summarizeOnOpen = event.enabled))
+            }
         }
     }
 
@@ -372,5 +377,9 @@ sealed interface OpenAISettingsEvent {
 
     data class ShowModelsError(
         val show: Boolean,
+    ) : OpenAISettingsEvent
+
+    data class SetSummarizeOnOpen(
+        val enabled: Boolean,
     ) : OpenAISettingsEvent
 }

@@ -177,6 +177,14 @@ class ArticleViewModel(
             initialValue = ArticleState(),
         )
 
+    init {
+        viewModelScope.launch {
+            if (repository.openAISettings.value.summarizeOnOpen) {
+                summarize()
+            }
+        }
+    }
+
     private suspend fun parseArticleContent(
         article: Article,
         fullText: Boolean,
