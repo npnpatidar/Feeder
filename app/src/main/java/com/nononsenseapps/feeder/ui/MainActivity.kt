@@ -94,6 +94,8 @@ class MainActivity : DIAwareComponentActivity() {
             AddFeedDestination.register(this, navController, navDrawerListState)
             // Settings
             SettingsDestination.register(this, navController, navDrawerListState)
+            // FreshRSS Sync
+            com.nononsenseapps.feeder.ui.compose.navigation.FreshRssSyncDestination.register(this, navController, navDrawerListState)
             // Sync settings
             SyncScreenDestination.register(this, navController, navDrawerListState)
             // Add Fonts

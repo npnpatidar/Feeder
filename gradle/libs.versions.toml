@@ -47,6 +47,7 @@ mockk = "1.14.5"
 androidx-test-junit-ktx = "1.2.1"
 emoji2 = "1.5.0"
 icu4j = "77.1"
+security-crypto = "1.1.0-alpha06"
 
 [libraries]
 retrofit-bom = { module = "com.squareup.retrofit2:retrofit-bom", version.ref = "retrofit" }
@@ -107,6 +108,8 @@ androidx-browser = { module = "androidx.browser:browser", version.ref = "android
 readability4j = { module = "net.dankito.readability4j:readability4j", version.ref = "readability4j" }
 retrofit = { module = "com.squareup.retrofit2:retrofit" }
 retrofit-converter-moshi = { module = "com.squareup.retrofit2:converter-moshi" }
+security-crypto = { module = "androidx.security:security-crypto", version.ref = "security-crypto" }
+retrofit-converter-scalars = { module = "com.squareup.retrofit2:converter-scalars" }
 moshi = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }
 moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshi" }
 moshi-adapters = { module = "com.squareup.moshi:moshi-adapters", version.ref = "moshi" }
@@ -140,8 +143,8 @@ ktlint-gradle = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint-gr
 [bundles]
 okhttp-android = ["okhttp", "okio"]
 kotlin = ["kotlin-stdlib", "kotlin-stdlib-common", "kotlin-coroutines-core", "kotlin-serialization-json"]
-jvm = ["jsoup", "tagsoup", "readability4j", "retrofit", "retrofit-converter-moshi", "moshi", "moshi-kotlin", "moshi-adapters", "qrgen", "gofeed-android", "icu4j"]
-android = ["lifecycle-runtime-ktx", "lifecycle-viewmodel-ktx", "lifecycle-viewmodel-savedstate", "paging-runtime-ktx", "room-ktx", "room-paging", "core-ktx", "androidx-appcompat", "androidx-preference", "coil-gif", "coil-svg", "coil-okhttp", "kotlin-coroutines-android", "kodein-androidx", "androidx-browser", "emoji2", "emoji2-view-helper"]
+jvm = ["jsoup", "tagsoup", "readability4j", "retrofit", "retrofit-converter-moshi", "retrofit-converter-scalars", "moshi", "moshi-kotlin", "moshi-adapters", "qrgen", "gofeed-android", "icu4j"]
+android = ["lifecycle-runtime-ktx", "lifecycle-viewmodel-ktx", "lifecycle-viewmodel-savedstate", "paging-runtime-ktx", "room-ktx", "room-paging", "core-ktx", "androidx-appcompat", "androidx-preference", "coil-gif", "coil-svg", "coil-okhttp", "kotlin-coroutines-android", "kodein-androidx", "androidx-browser", "emoji2", "emoji2-view-helper", "security-crypto"]
 compose = ["activity-compose", "ui", "foundation", "foundation-layout", "compose-material3", "compose-material", "compose-material-icons-extended", "runtime", "ui-tooling", "navigation-compose", "paging-compose", "window", "android-material", "accompanist-permissions", "accompanist-adaptive", "compose-material3-windowsizeclass", "lifecycle-runtime-compose", "coil-compose", "lazycolumnscrollbar"]
 test = ["kotlin-test-junit", "kotlin-coroutines-test", "junit", "mockk", "mockwebserver"]
 android-test = ["kotlin-test-junit", "kotlin-coroutines-test", "mockk-android", "junit", "mockwebserver", "androidx-test-core", "androidx-test-core-ktx", "androidx-test-runner", "androidx-test-junit-ktx", "room-testing", "espresso-core", "compose-ui-test-junit4"]

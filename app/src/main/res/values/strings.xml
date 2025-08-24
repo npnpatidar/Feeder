@@ -178,6 +178,18 @@
   <string name="remove_device_question">Are you sure you want to delete device %1$s?</string>
   <string name="press_scan_sync">On your device, navigate to device sync, and press scan sync code.</string>
   <string name="or_open_device_sync_link">Alternatively, open the link on your device.</string>
+
+  <!-- FreshRSS Sync -->
+  <string name="freshrss_sync">FreshRSS Sync</string>
+  <string name="freshrss_sync_description">Synchronize your feeds with a FreshRSS server.</string>
+  <string name="freshrss_server_url">Server URL</string>
+  <string name="freshrss_username">Username</string>
+  <string name="freshrss_password">Password</string>
+  <string name="freshrss_sync_now">Sync Now</string>
+  <string name="freshrss_sync_status">FreshRSS Sync Status</string>
+  <string name="freshrss_sync_success">FreshRSS sync completed successfully.</string>
+  <string name="freshrss_sync_error">Failed to sync with FreshRSS. Please check your settings.</string>
+  <string name="freshrss_save">Save</string>
   <string name="treat_like_password">Treat this like a password. Anyone can read your synced data if they have the link.</string>
   <string name="qr_code">QR Code</string>
   <string name="feeder_device_sync_code">Feeder device sync code</string>

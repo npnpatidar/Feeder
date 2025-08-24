@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavArgumentBuilder
 import androidx.navigation.NavBackStackEntry
@@ -336,7 +337,48 @@ data object SettingsDestination : NavigationDestination(
             onNavigateToTextSettingsScreen = {
                 TextSettingsDestination.navigate(navController)
             },
+            onNavigateToFreshRssSyncScreen = {
+                FreshRssSyncDestination.navigate(navController)
+            },
             settingsViewModel = backStackEntry.diAwareViewModel(),
+        )
+    }
+}
+
+data object FreshRssSyncDestination : NavigationDestination(
+    path = "settings/freshrss_sync",
+    navArguments = emptyList(),
+    deepLinks = emptyList(),
+) {
+    fun navigate(navController: NavController) {
+        navController.navigate(path) {
+            launchSingleTop = true
+        }
+    }
+
+    @Composable
+    override fun RegisterScreen(
+        navController: NavController,
+        backStackEntry: NavBackStackEntry,
+        navDrawerListState: LazyListState,
+    ) {
+        val viewModel: com.nononsenseapps.feeder.ui.compose.settings.FreshRssSyncViewModel = backStackEntry.diAwareViewModel()
+        val serverUrl = viewModel.serverUrl.collectAsStateWithLifecycle().value
+        val username = viewModel.username.collectAsStateWithLifecycle().value
+        val password = viewModel.password.collectAsStateWithLifecycle().value
+        val syncStatus = viewModel.syncStatus.collectAsStateWithLifecycle().value
+
+        com.nononsenseapps.feeder.ui.compose.settings.FreshRssSyncScreen(
+            onNavigateUp = { navController.popBackStack() },
+            onSave = { url, user, pass -> viewModel.saveCredentials(url, user, pass) },
+            onSync = { viewModel.syncWithFreshRss() },
+            serverUrl = serverUrl,
+            username = username,
+            password = password,
+            syncStatus = syncStatus,
+            onServerUrlChange = viewModel::setServerUrl,
+            onUsernameChange = viewModel::setUsername,
+            onPasswordChange = viewModel::setPassword,
         )
     }
 }

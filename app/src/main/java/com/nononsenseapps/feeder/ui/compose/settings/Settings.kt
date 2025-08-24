@@ -103,12 +103,19 @@ import com.nononsenseapps.feeder.util.ActivityLauncher
 import org.kodein.di.compose.LocalDI
 import org.kodein.di.instance
 
+// FreshRSS Sync imports
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.nononsenseapps.feeder.ui.compose.settings.FreshRssSyncScreen
+import com.nononsenseapps.feeder.ui.compose.settings.FreshRssSyncViewModel
+import com.nononsenseapps.feeder.ui.compose.settings.FreshRssSyncStatus
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(
     onNavigateUp: () -> Unit,
     onNavigateToSyncScreen: () -> Unit,
     onNavigateToTextSettingsScreen: () -> Unit,
+    onNavigateToFreshRssSyncScreen: () -> Unit,
     settingsViewModel: SettingsViewModel,
     modifier: Modifier = Modifier,
 ) {
@@ -209,6 +216,7 @@ fun SettingsScreen(
             onTextSettings = onNavigateToTextSettingsScreen,
             currentFontSelection = viewState.font,
             modifier = Modifier.padding(padding),
+            onNavigateToFreshRssSyncScreen = onNavigateToFreshRssSyncScreen,
         )
     }
 }
@@ -280,6 +288,7 @@ private fun SettingsScreenPreview() {
             onTextSettings = {},
             currentFontSelection = FontSelection.SystemDefault,
             modifier = Modifier,
+            onNavigateToFreshRssSyncScreen = {}
         )
     }
 }
@@ -347,6 +356,7 @@ fun SettingsList(
     currentFontSelection: FontSelection,
     onTextSettings: () -> Unit,
     modifier: Modifier = Modifier,
+    onNavigateToFreshRssSyncScreen: () -> Unit,
 ) {
     val scrollState = rememberScrollState()
     val dimens = LocalDimens.current
@@ -534,6 +544,15 @@ fun SettingsList(
                 title = stringResource(id = R.string.device_sync),
                 {
                     onOpenSyncSettings()
+                },
+            )
+
+            // --- FreshRSS Sync entry ---
+            ExternalSetting(
+                currentValue = "",
+                title = stringResource(id = R.string.freshrss_sync),
+                {
+                    onNavigateToFreshRssSyncScreen()
                 },
             )
         }

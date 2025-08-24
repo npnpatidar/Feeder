@@ -59,4 +59,5 @@ val archModelModule =
         bindWithComposableViewModelScope<FeedViewModel>()
         bindWithComposableViewModelScope<NavigationDeepLinkViewModel>()
         bindWithComposableViewModelScope<TextSettingsViewModel>()
+        bindWithComposableViewModelScope<com.nononsenseapps.feeder.ui.compose.settings.FreshRssSyncViewModel>()
     }

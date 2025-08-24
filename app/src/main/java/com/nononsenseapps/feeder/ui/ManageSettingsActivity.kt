@@ -49,6 +49,10 @@ class ManageSettingsActivity : DIAwareComponentActivity() {
                         )
                         finish()
                     },
+                    onNavigateToFreshRssSyncScreen = {
+                        // For ManageSettingsActivity, just finish or show a message, or navigate as needed
+                        finish()
+                    },
                     settingsViewModel = diAwareViewModel(),
                 )
             }
