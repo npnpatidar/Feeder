@@ -179,8 +179,15 @@ class ArticleViewModel(
 
     init {
         viewModelScope.launch {
-            if (repository.openAISettings.value.summarizeOnOpen) {
-                summarize()
+            articleFlow.collect { article ->
+                val feedId = article?.item?.feedId
+                if (feedId != null) {
+                    val feed = repository.getFeed(feedId)
+                    if (feed?.summarizeOnOpen == true) {
+                        summarize()
+                        return@collect // Only summarize on first load
+                    }
+                }
             }
         }
     }

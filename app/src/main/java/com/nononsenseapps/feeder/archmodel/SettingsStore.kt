@@ -463,7 +463,6 @@ class SettingsStore(
                 azureApiVersion = sp.getStringNonNull(PREF_OPENAI_AZURE_VERSION, ""),
                 azureDeploymentId = sp.getStringNonNull(PREF_OPENAI_AZURE_DEPLOYMENT_ID, ""),
                 timeoutSeconds = sp.getInt(PREF_OPENAI_REQUEST_TIMEOUT_SECONDS, 30),
-                summarizeOnOpen = sp.getBoolean(PREF_OPENAI_SUMMARIZE_ON_OPEN, false),
             ),
         )
     val openAiSettings = _openAiSettings.asStateFlow()
@@ -478,7 +477,6 @@ class SettingsStore(
             .putString(PREF_OPENAI_AZURE_VERSION, value.azureApiVersion)
             .putString(PREF_OPENAI_AZURE_DEPLOYMENT_ID, value.azureDeploymentId)
             .putInt(PREF_OPENAI_REQUEST_TIMEOUT_SECONDS, value.timeoutSeconds)
-            .putBoolean(PREF_OPENAI_SUMMARIZE_ON_OPEN, value.summarizeOnOpen)
             .apply()
     }
 
@@ -733,7 +731,6 @@ data class OpenAISettings(
     val azureApiVersion: String = "",
     val azureDeploymentId: String = "",
     val key: String = "",
-    val summarizeOnOpen: Boolean = false,
 )
 
 fun String.dropEnds(

@@ -349,11 +349,7 @@ fun OpenAISectionEdit(
             },
         )
 
-        SwitchSetting(
-            title = stringResource(id = R.string.summarize_on_open),
-            checked = current.summarizeOnOpen,
-            onCheckedChange = { onEvent(OpenAISettingsEvent.SetSummarizeOnOpen(it)) },
-        )
+
     }
 }
 
