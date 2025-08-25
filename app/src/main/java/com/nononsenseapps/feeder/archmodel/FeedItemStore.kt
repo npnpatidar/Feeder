@@ -1,6 +1,7 @@
 package com.nononsenseapps.feeder.archmodel
 
 import androidx.paging.Pager
+import com.nononsenseapps.feeder.db.room.ReadStatusSyncedDao
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
@@ -43,6 +44,7 @@ class FeedItemStore(
     private val dao: FeedItemDao by instance()
     private val blocklistDao: BlocklistDao by instance()
     private val appDatabase: AppDatabase by instance()
+    private val readStatusSyncedDao: ReadStatusSyncedDao by instance()
 
     suspend fun setBlockStatusForNewInFeed(
         feedId: Long,
@@ -238,6 +240,10 @@ class FeedItemStore(
 
     suspend fun markAsRead(itemIds: List<Long>) {
         dao.markAsRead(itemIds)
+        // Remove any existing sync records for these items
+        itemIds.forEach { itemId ->
+            readStatusSyncedDao.deleteReadStatusSyncForItem(itemId)
+        }
     }
 
     suspend fun markAsReadAndNotified(
@@ -262,6 +268,8 @@ class FeedItemStore(
 
     suspend fun markAsUnread(itemId: Long) {
         dao.markAsUnread(itemId)
+        // Remove any existing sync records for this item
+        readStatusSyncedDao.deleteReadStatusSyncForItem(itemId)
     }
 
     suspend fun setBookmarked(

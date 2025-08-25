@@ -35,7 +35,7 @@ interface ReadStatusSyncedDao {
      */
     @Query(
         """
-            SELECT 
+            SELECT
                 fi.id AS $COL_ID,
                 f.id AS $COL_FEEDID,
                 fi.guid AS $COL_GUID,
@@ -59,7 +59,7 @@ interface ReadStatusSyncedDao {
      */
     @Query(
         """
-            SELECT 
+            SELECT
                 fi.id AS $COL_ID,
                 f.id AS $COL_FEEDID,
                 fi.guid AS $COL_GUID,
@@ -98,13 +98,7 @@ interface ReadStatusSyncedDao {
     )
     suspend fun getFeedItemsWithoutSyncedReadMark(): List<FeedItemForReadMark>
 
-    @Query(
-        """
-            DELETE FROM remote_read_mark
-            WHERE id in (:ids)
-        """,
-    )
-    suspend fun deleteReadStatusSyncs(ids: List<Long>): Int
+
 
     @Query(
         """
@@ -113,4 +107,12 @@ interface ReadStatusSyncedDao {
         """,
     )
     suspend fun deleteReadStatusSyncForItem(feedItemId: Long): Int
+
+    @Query(
+        """
+            DELETE FROM read_status_synced
+            WHERE id in (:ids)
+        """,
+    )
+    suspend fun deleteReadStatusSyncs(ids: List<Long>): Int
 }

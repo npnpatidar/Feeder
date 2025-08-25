@@ -99,6 +99,10 @@ class Repository(
 
     val currentFeedAndTag: StateFlow<Pair<Long, String>> = settingsStore.currentFeedAndTag
 
+    fun getFeedItem(id: Long): Flow<FeedItemWithFeed?> {
+        return feedItemStore.getFeedItem(id)
+    }
+
     fun getUnreadCount(
         feedId: Long,
         tag: String = "",

@@ -48,6 +48,30 @@ interface FreshRssApi {
     suspend fun getUnreadItems(
         @Query("n") count: Int = 20 // Number of items to fetch
     ): Response<StreamContentsResponse>
+
+    /**
+     * Mark items as read.
+     * Requires "Authorization: GoogleLogin auth=<Auth token>" header.
+     */
+    @FormUrlEncoded
+    @POST("/api/greader.php/reader/api/0/edit-tag")
+    suspend fun markAsRead(
+        @Field("i") itemIds: List<String>,
+        @Field("a") action: String = "user/-/state/com.google/read",
+        @Field("r") readState: String = "user/-/state/com.google/read"
+    ): Response<String>
+
+    /**
+     * Mark items as unread.
+     * Requires "Authorization: GoogleLogin auth=<Auth token>" header.
+     */
+    @FormUrlEncoded
+    @POST("/api/greader.php/reader/api/0/edit-tag")
+    suspend fun markAsUnread(
+        @Field("i") itemIds: List<String>,
+        @Field("a") action: String = "user/-/state/com.google/read",
+        @Field("r") readState: String = ""
+    ): Response<String>
 }
 
 /**
